@@ -5,6 +5,21 @@ import Mainpage from '../views/Mainpage.vue'
 import Shoplist from '../views/Shoplist.vue'
 import favorite from '../views/favorite.vue'
 import recpiepercat from '../views/recpiepercat.vue'
+import { auth } from '../main';
+const guard = (to, from, next) => {
+    const curruser = auth.currentUser;
+    try {
+        if (to.name != 'authentication' && !curruser) {
+            next("/")
+            return
+        } else {
+            next()
+        }
+    } catch (error) {
+        console.log(error)
+        next("/")
+    }
+}
 const routes = [{
         path: '/',
         redirect: '/authentication'
@@ -22,24 +37,32 @@ const routes = [{
     {
         path: '/Mainpage',
         component: Mainpage,
+        beforeEnter: guard,
+        meta: { requiresAuth: true },
 
     },
     {
         path: '/favorite',
         name: 'favorite',
         component: favorite,
+        beforeEnter: guard,
+        meta: { requiresAuth: true }
 
     },
     {
         path: '/Shoplist',
         name: 'Shoplist',
         component: Shoplist,
+        beforeEnter: guard,
+        meta: { requiresAuth: true }
 
     },
     {
         path: '/recpiepercat',
         name: 'recpiepercat',
         component: recpiepercat,
+        beforeEnter: guard,
+        meta: { requiresAuth: true }
 
     },
 
