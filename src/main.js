@@ -25,12 +25,7 @@ import './theme/variables.css';
 import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDceegQETKn80e5PME1-lqcdKzUibmOLRI",
-    authDomain: "mylittlehelper-1630944601002.firebaseapp.com",
-    projectId: "mylittlehelper-1630944601002",
-    storageBucket: "mylittlehelper-1630944601002.appspot.com",
-    messagingSenderId: "362424391326",
-    appId: "1:362424391326:web:91551ed24a6830b6b48d8f"
+
 }
 
 // Initialize Firebase
