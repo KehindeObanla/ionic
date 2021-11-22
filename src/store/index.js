@@ -4,7 +4,7 @@ const store = createStore({
         return {
             categories: [{
                     id: '1',
-                    name: "Dessert",
+                    category: "Dessert",
                     photo: '',
                     recipie: '',
                     ingredient: '',
@@ -12,7 +12,7 @@ const store = createStore({
                 },
                 {
                     id: '2',
-                    name: "Casserole",
+                    category: "Casserole",
                     photo: '',
                     recipie: '',
                     ingredient: '',
@@ -20,7 +20,7 @@ const store = createStore({
                 },
                 {
                     id: '3',
-                    name: "Drink",
+                    category: "Drink",
                     photo: '',
                     recipie: '',
                     ingredient: '',
@@ -28,7 +28,7 @@ const store = createStore({
                 },
                 {
                     id: '4',
-                    name: "Side",
+                    category: "Side",
                     photo: '',
                     recipie: '',
                     ingredient: '',
@@ -36,7 +36,7 @@ const store = createStore({
                 },
                 {
                     id: '5',
-                    name: "soup",
+                    category: "soup",
                     photo: '',
                     recipie: '',
                     ingredient: '',
@@ -45,7 +45,7 @@ const store = createStore({
 
                 {
                     id: '6',
-                    name: "salad",
+                    category: "salad",
                     photo: '',
                     recipie: '',
                     ingredient: '',
@@ -53,7 +53,7 @@ const store = createStore({
                 },
                 {
                     id: '7',
-                    name: "Breakfast",
+                    category: "Breakfast",
                     photo: '',
                     recipie: '',
                     ingredient: '',
@@ -61,7 +61,7 @@ const store = createStore({
                 },
                 {
                     id: '8',
-                    name: "Appetizer",
+                    category: "Appetizer",
                     photo: '',
                     recipie: '',
                     ingredient: '',
@@ -69,7 +69,7 @@ const store = createStore({
                 },
                 {
                     id: '9',
-                    name: "Main",
+                    category: "Main",
                     photo: '',
                     recipie: '',
                     ingredient: '',

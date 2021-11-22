@@ -3,7 +3,9 @@ import App from './App.vue'
 import router from './router';
 import store from "./store"
 import { IonicVue } from '@ionic/vue';
-
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+import { getFirestore } from "firebase/firestore"
+import { getStorage } from "firebase/storage";
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
 
@@ -23,6 +25,7 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import { initializeApp } from "firebase/app";
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
 
@@ -30,7 +33,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-import { getFirestore, } from "firebase/firestore"
+
 import {
     getAuth,
     onAuthStateChanged
@@ -38,32 +41,22 @@ import {
 } from "firebase/auth";
 export const db = getFirestore(firebaseApp)
 export const auth = getAuth();
+export const storage = getStorage(firebaseApp);
+
+defineCustomElements(window);
 let app
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        if (!app) {
-            app = createApp(App)
-                .use(IonicVue)
-                .use(router)
-                .use(store)
+onAuthStateChanged(auth, async(user) => {
+    if (!app) {
+        app = createApp(App)
+            .use(IonicVue)
+            .use(router)
+            .use(store)
 
-            router.isReady().then(() => {
-                app.mount('#app');
-            });
-        }
-        // ...
-    } else {
-        // User is signed out
-        // ...
+        router.isReady().then(() => {
+            app.mount('#app');
+        });
     }
-});
-/* const app = createApp(App)
-    .use(IonicVue)
-    .use(router)
-    .use(store);
+    // ...
 
-router.isReady().then(() => {
-    app.mount('#app');
-}); */
+    console.log(user.uid)
+});

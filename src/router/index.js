@@ -5,6 +5,7 @@ import Mainpage from '../views/Mainpage.vue'
 import Shoplist from '../views/Shoplist.vue'
 import favorite from '../views/favorite.vue'
 import recpiepercat from '../views/recpiepercat.vue'
+import test from '../views/test.vue'
 import { auth } from '../main';
 const guard = (to, from, next) => {
     const curruser = auth.currentUser;
@@ -63,6 +64,13 @@ const routes = [{
         component: recpiepercat,
         beforeEnter: guard,
         meta: { requiresAuth: true }
+
+    },
+    {
+        path: '/test',
+        name: 'test',
+        component: test,
+
 
     },
 

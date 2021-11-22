@@ -122,7 +122,7 @@ export default {
       id:""
     });
     const usersiginWithemailandPassword = async (email, password) => {
-      console.log("hereemail")
+      
       try {
         if (!email || !password) {
           state.errormsg = "email and password required!";
@@ -186,7 +186,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .center {
   display: flex;
   height: 90vh;
