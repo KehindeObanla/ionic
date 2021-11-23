@@ -4,7 +4,7 @@
       <ion-toolbar>
         <ion-title>{{ TitleUpdate }} </ion-title>
         <ion-buttons slot="start">
-          <ion-back-button>
+          <ion-back-button default-href="/Mainpage">
             <ion-icon name="arrow-back-outline"></ion-icon>
           </ion-back-button>
         </ion-buttons>
@@ -56,7 +56,7 @@
 
 <script>
 import { auth, db } from "../main";
-import { collection, setDoc } from "firebase/firestore";
+import { collection, updateDoc ,getDocs } from "firebase/firestore";
 import {
   IonHeader,
   IonToolbar,
@@ -124,8 +124,14 @@ export default {
         category: this.rcategory,
         recipie: this.recipe,
         favorite: this.fav,
-      };
-      await setDoc(userref, docData, { merge: true });
+      }; 
+      const querySnapshot = await getDocs (userref);
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+           updateDoc(doc.ref, docData);
+        });
+      }
+      this.$router.push({name:'category', params:{TitlePer:this.TitleUpdate}});
     },
   },
   ionViewDidEnter() {
@@ -145,7 +151,7 @@ export default {
         this.needUpdate = true;
         
         this.count-=1;
-        console.log("rname",this.count)
+       
       },
       rnotes: function (val) {
         this.rnotes = val;
@@ -157,19 +163,19 @@ export default {
         this.ringredient = val;
         this.needUpdate = true;
         this.count-=1
-         console.log("ringredient",this.count)
+        
       },
       rcategory: function (val) {
         this.rcategory = val;
         this.needUpdate = true;
         this.count-=1
-        console.log("rcategory",this.count)
+      
       },
       recipe: function (val) {
         this.recipe = val;
         this.needUpdate = true;
         this.count-=1
-        console.log("recipe",this.count)
+       
       },
     },
 };

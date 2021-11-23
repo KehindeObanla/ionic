@@ -177,6 +177,7 @@ export default {
         favorite: this.fav,
       };
       await addDoc(userref, docData);
+      this.$router.push({name:'category', params:{TitlePer:this.TitlePerCat}});
     },
     async recognizeimage() {
       this.workerready = true;
