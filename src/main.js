@@ -45,7 +45,7 @@ export const storage = getStorage(firebaseApp);
 
 defineCustomElements(window);
 let app
-onAuthStateChanged(auth, async(user) => {
+onAuthStateChanged(auth, async() => {
     if (!app) {
         app = createApp(App)
             .use(IonicVue)
@@ -58,5 +58,5 @@ onAuthStateChanged(auth, async(user) => {
     }
     // ...
 
-    console.log(user.uid)
+
 });

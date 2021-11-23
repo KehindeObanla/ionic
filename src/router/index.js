@@ -6,6 +6,7 @@ import Shoplist from '../views/Shoplist.vue'
 import favorite from '../views/favorite.vue'
 import recpiepercat from '../views/recpiepercat.vue'
 import test from '../views/test.vue'
+import category from '../views/category.vue'
 import { auth } from '../main';
 const guard = (to, from, next) => {
     const curruser = auth.currentUser;
@@ -62,6 +63,7 @@ const routes = [{
         path: '/recpiepercat',
         name: 'recpiepercat',
         component: recpiepercat,
+        props: true,
         beforeEnter: guard,
         meta: { requiresAuth: true }
 
@@ -71,6 +73,14 @@ const routes = [{
         name: 'test',
         component: test,
 
+
+    },
+    {
+        path: '/category',
+        name: 'category',
+        component: category,
+        beforeEnter: guard,
+        meta: { requiresAuth: true }
 
     },
 

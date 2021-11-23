@@ -9,7 +9,7 @@
           </ion-back-button>
         </ion-buttons>
         <ion-buttons slot="end">
-          <ion-button>
+          <ion-button @click="toAddrecipie">
               <ion-icon slot="icon-only" :icon="addCircleOutline"></ion-icon>
           </ion-button>
           </ion-buttons>
@@ -18,7 +18,7 @@
     <ion-content :fullscreen="true">
       <ion-list>
         <ion-item>
-
+                number 1
         </ion-item>
       </ion-list>
       
@@ -42,6 +42,8 @@ import {
   IonItem,
 } from "@ionic/vue";
 import { addCircleOutline  } from "ionicons/icons";
+/* import {store} from '../store/index.js' */
+
 export default {
   components: {
     IonHeader,
@@ -69,6 +71,10 @@ export default {
     player() {
       return this.$store.getters.players;
     },
+    toAddrecipie(){
+        console.log(this.ppf)
+        this.$router.push({name:'recpiepercat', params:{TitlePerCat:this.ppf}});
+    }
   }
 };
 </script>

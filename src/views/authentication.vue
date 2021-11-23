@@ -2,16 +2,14 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>
-          Sigin In/UP
-        </ion-title>
+        <ion-title> Sigin In/UP </ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-card >
+      <ion-card>
         <ion-card-header>
           <ion-card-title>Welcome to My little Helper</ion-card-title>
-          <ion-card-subtitle>  Sign In/Up</ion-card-subtitle>
+          <ion-card-subtitle> Sign In/Up</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
           <form
@@ -45,14 +43,17 @@
               expand="block"
               color="secondary"
               class="ion-margin-top"
-              @click="mode = mode === AuthMode.SignIn ? AuthMode.SignUp : AuthMode.SignIn"
+              @click="
+                mode =
+                  mode === AuthMode.SignIn ? AuthMode.SignUp : AuthMode.SignIn
+              "
             >
               {{ mode === AuthMode.SignIn ? "Sign Up" : "Cancel" }}
             </ion-button>
           </form>
         </ion-card-content>
         <ion-card-content v-if="errormsg" class="error-message">
-            {{errormsg}}
+          {{ errormsg }}
         </ion-card-content>
       </ion-card>
     </ion-content>
@@ -60,9 +61,6 @@
 </template>
 
 <script>
-
-
-
 import {
   IonPage,
   IonHeader,
@@ -77,18 +75,18 @@ import {
   IonLabel,
   IonItem,
   IonToolbar,
-  IonCardHeader
+  IonCardHeader,
 } from "@ionic/vue";
 
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import {db,auth} from '../main'
-import {doc, setDoc } from "firebase/firestore"; 
+import { db, auth } from "../main";
+import { doc, setDoc, getDocs , collection } from "firebase/firestore";
 import { reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
-
+import {useStore} from 'vuex'
 const AuthMode = {
   SignIn: "SignIn",
   SignUp: "SignUp",
@@ -109,9 +107,10 @@ export default {
     IonLabel,
     IonItem,
     IonToolbar,
-    IonCardHeader
+    IonCardHeader,
   },
   setup() {
+    const store = useStore()
     const router = useRouter();
     const state = reactive({
       name: "",
@@ -119,10 +118,9 @@ export default {
       password: "",
       mode: AuthMode.SignIn,
       errormsg: "",
-      id:""
+      id: "",
     });
     const usersiginWithemailandPassword = async (email, password) => {
-      
       try {
         if (!email || !password) {
           state.errormsg = "email and password required!";
@@ -132,21 +130,18 @@ export default {
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-             console.log(user.uid)
-             router.push("/Mainpage");
+            onSiginInOrUP(user);
+            router.push("/Mainpage");
             // ...
           })
           .catch((error) => {
-            
             state.errormsg = error.message;
           });
-        
       } catch (error) {
         state.errormsg = error.message;
       }
     };
     const usersSiginUpEmailAndPassword = async (name, email, password) => {
-      
       try {
         if (!name || !email || !password) {
           state.errormsg = "Name,email and password required!";
@@ -156,13 +151,14 @@ export default {
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-            state.id = user.uid 
-            const userref = doc(db,'user',state.id)
-            const docData ={
-              name:state.name,
-              email:state.email
-            }
-            setDoc(userref,docData)
+            state.id = user.uid;
+            const userref = doc(db, "user", state.id);
+            const docData = {
+              name: state.name,
+              email: state.email,
+            };
+            setDoc(userref, docData);
+
             router.push("/Mainpage");
             // ...
           })
@@ -176,10 +172,27 @@ export default {
         state.errormsg = error.message;
       }
     };
+    const onSiginInOrUP = async (user) => {
+      
+      const uid = user.uid;
+      const docRef = collection(db, "user", uid, "recipies");
+      const querySnapshot = await getDocs (docRef);
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          toggle(doc.data())
+          console.log(typeof(doc.data().notes))
+          console.log(doc.id, " => ", doc.data());
+        });
+      }
+    };
+    const toggle = (value) => {
+      store.commit('AddFromDB',value)};
     return {
       ...toRefs(state),
       usersiginWithemailandPassword,
       usersSiginUpEmailAndPassword,
+      onSiginInOrUP,
+
       AuthMode,
     };
   },

@@ -132,7 +132,7 @@ export default {
       var value = detail['value']
       toggle(value)
       
-      router.push("/recpiepercat");
+      router.push("/category");
     }
     return {
       starOutline,
