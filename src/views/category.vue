@@ -17,7 +17,7 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-list>
-        <ion-item v-for="categ in categories" :key="categ">
+        <ion-item v-for="categ in categories" :key="categ" @click="Sendtosee(categ.id)">
                 {{categ.recipiename}}
         </ion-item>
       </ion-list>
@@ -60,12 +60,17 @@ export default {
   data() {
     return {addCircleOutline,
     ppf:"",
-    playerfood:""};
+    playerfood:"",
+    };
   }, 
   methods:{
     
     toAddrecipie(){
         this.$router.push({name:'recpiepercat', params:{TitlePerCat:this.ppf}});
+    },
+    Sendtosee(id){
+      console.log(id)
+      this.$router.push({name:'UpdateSee', params:{TitleUpdate:this.ppf,id:id}});
     }
   },
   computed:{

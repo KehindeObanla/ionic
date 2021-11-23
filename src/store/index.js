@@ -14,8 +14,14 @@ const store = createStore({
         },
         category(state) {
             return (id) => {
-                /* console.log("state", id) */
+
                 return state.categories.filter((category) => category.category == id);
+            }
+        },
+        catid(state) {
+            return (id) => {
+                console.log("id", id)
+                return state.categories.find((category) => category.id == id);
             }
         },
         players: state => {

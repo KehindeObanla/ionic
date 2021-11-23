@@ -7,6 +7,7 @@ import favorite from '../views/favorite.vue'
 import recpiepercat from '../views/recpiepercat.vue'
 import test from '../views/test.vue'
 import category from '../views/category.vue'
+import UpdateSee from '../views/updateSee.vue'
 import { auth } from '../main';
 const guard = (to, from, next) => {
     const curruser = auth.currentUser;
@@ -79,6 +80,15 @@ const routes = [{
         path: '/category',
         name: 'category',
         component: category,
+        props: true,
+        beforeEnter: guard,
+        meta: { requiresAuth: true }
+
+    },
+    {
+        path: '/UpdateSee',
+        name: 'UpdateSee',
+        component: UpdateSee,
         props: true,
         beforeEnter: guard,
         meta: { requiresAuth: true }
