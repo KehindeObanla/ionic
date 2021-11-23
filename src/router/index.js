@@ -79,6 +79,7 @@ const routes = [{
         path: '/category',
         name: 'category',
         component: category,
+        props: true,
         beforeEnter: guard,
         meta: { requiresAuth: true }
 

@@ -180,8 +180,6 @@ export default {
       if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
           toggle(doc.data())
-          console.log(typeof(doc.data().notes))
-          console.log(doc.id, " => ", doc.data());
         });
       }
     };

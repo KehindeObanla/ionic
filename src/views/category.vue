@@ -2,9 +2,9 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ppf}}</ion-title>
+        <ion-title>{{TitlePer}}</ion-title>
         <ion-buttons slot="start">
-          <ion-back-button default-href="/Mainpage">
+          <ion-back-button>
             <ion-icon name="arrow-back-outline"></ion-icon>
           </ion-back-button>
         </ion-buttons>
@@ -17,12 +17,10 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-list>
-        <ion-item>
-                number 1
+        <ion-item v-for="categ in categories" :key="categ">
+                {{categ.recipiename}}
         </ion-item>
       </ion-list>
-      
-      
        </ion-content>
   </ion-page>
 </template>
@@ -45,6 +43,7 @@ import { addCircleOutline  } from "ionicons/icons";
 /* import {store} from '../store/index.js' */
 
 export default {
+  props: ['TitlePer'],
   components: {
     IonHeader,
     IonToolbar,
@@ -62,20 +61,21 @@ export default {
     return {addCircleOutline,
     ppf:"",
     playerfood:""};
-  }, ionViewWillEnter() {
-    this.playerfood = this.player();
-    this.ppf = this.playerfood.foodtype;
-   
-  },
+  }, 
   methods:{
-    player() {
-      return this.$store.getters.players;
-    },
+    
     toAddrecipie(){
-        console.log(this.ppf)
         this.$router.push({name:'recpiepercat', params:{TitlePerCat:this.ppf}});
     }
-  }
+  },
+  computed:{
+        categories(){
+          return this.$store.getters.category(this.ppf)
+        }
+    },
+    ionViewDidEnter(){
+      this.ppf = this.TitlePer;
+    }
 };
 </script>
 

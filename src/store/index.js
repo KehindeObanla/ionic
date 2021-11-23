@@ -10,11 +10,12 @@ const store = createStore({
     },
     getters: {
         categories(state) {
-            return state.topics
+            return state.categories
         },
         category(state) {
             return (id) => {
-                return state.categories.find((category) => category.id == id);
+                /* console.log("state", id) */
+                return state.categories.filter((category) => category.category == id);
             }
         },
         players: state => {
@@ -30,8 +31,7 @@ const store = createStore({
         },
         AddFromDB(state, recipies) {
             state.categories.push(recipies)
-            console.log(recipies)
-            console.log(typeof(recipies))
+
         }
 
     }

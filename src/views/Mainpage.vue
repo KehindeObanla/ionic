@@ -100,9 +100,10 @@ import {
 import { cartOutline, starOutline } from "ionicons/icons";
 import { useRouter } from "vue-router";
 
-import {useStore} from 'vuex'
+
 
 export default {
+  
   name: "Mainpage",
   components: {
     IonLabel,
@@ -122,17 +123,13 @@ export default {
 /* IonButton  */
   },
   setup() {
-    const store = useStore()
-    const toggle = (value) => {
+  
     
-    store.commit('changeCat',value)};
      const router = useRouter()
       const segmentChanged =(ev) =>{
       var detail = ev['detail']
       var value = detail['value']
-      toggle(value)
-      
-      router.push("/category");
+      router.push({name:'category', params:{TitlePer:value}});
     }
     return {
       starOutline,
