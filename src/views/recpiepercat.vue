@@ -87,8 +87,8 @@ import {
   IonSpinner,
 } from "@ionic/vue";
 import { camera } from "ionicons/icons";
-/* import {ref,uploadString,getDownloadURL } from "firebase/storage"; */
 import Tesseract, { createWorker } from "tesseract.js";
+
 
 export default {
   name: "recpiepercat",
@@ -134,7 +134,7 @@ export default {
       captureProgress2: 0,
       workerready2: false,
       fav: false,
-      /* TitlePerCat:this.$route.params.TitlePerCat */
+      
     };
   },
 
@@ -177,6 +177,12 @@ export default {
         favorite: this.fav,
       };
       await addDoc(userref, docData);
+      this.$store.commit('AddFromDB',docData);
+      this.rname ="";
+      this.rnotes="";
+      this.ringredient="";
+      this.recipe="";
+      this.rcategory="";
       this.$router.push({name:'category', params:{TitlePer:this.TitlePerCat}});
     },
     async recognizeimage() {
@@ -226,9 +232,6 @@ export default {
 },
   },
   ionViewWillEnter() {
-    /* this.playerfood = this.player();
-    this.ppf = this.playerfood.foodtype;
-    this.rcategory = this.ppf; */
     
     this.loadWorker();
     this.loadworker2();

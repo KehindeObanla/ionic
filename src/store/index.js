@@ -38,7 +38,8 @@ const store = createStore({
         AddFromDB(state, recipies) {
             state.categories.push(recipies)
 
-        }
+        },
+
 
     }
 

@@ -40,7 +40,7 @@ import {
   IonItem,
 } from "@ionic/vue";
 import { addCircleOutline  } from "ionicons/icons";
-/* import {store} from '../store/index.js' */
+
 
 export default {
   props: ['TitlePer'],
@@ -69,13 +69,12 @@ export default {
         this.$router.push({name:'recpiepercat', params:{TitlePerCat:this.ppf}});
     },
     Sendtosee(id){
-      console.log(id)
       this.$router.push({name:'UpdateSee', params:{TitleUpdate:this.ppf,id:id}});
     }
   },
   computed:{
         categories(){
-          return this.$store.getters.category(this.ppf)
+          return this.$store.getters.category(this.ppf);
         }
     },
     ionViewDidEnter(){
