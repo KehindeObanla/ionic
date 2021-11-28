@@ -20,7 +20,7 @@ const store = createStore({
         },
         catid(state) {
             return (id) => {
-                console.log("id", id)
+
                 return state.categories.find((category) => category.id == id);
             }
         },
@@ -28,6 +28,11 @@ const store = createStore({
 
             return state.player
         },
+        catfav(state) {
+            return () => {
+                return state.categories.filter((category) => category.favorite == true);
+            }
+        }
     },
     mutations: {
         changeCat(state, categorychange) {
@@ -39,7 +44,17 @@ const store = createStore({
             state.categories.push(recipies)
 
         },
+        changespecfic(state, Payload) {
+            const cate = state.categories.find((category) => { return category.id == Payload.id });
+            const index = store.state.categories.indexOf(cate)
+            state.categories[index] = Payload;
+            state.categories = [...state.categories]
 
+        },
+        removeFromstore(state, Payload) {
+            const cate = state.categories.find((category) => { return category.id == Payload.id });
+            state.categories.splice(store.state.categories.indexOf(cate), 1);
+        }
 
     }
 

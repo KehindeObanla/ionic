@@ -16,11 +16,23 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-list>
+      <ion-item-sliding id="item100" v-for="categ in categories" :key="categ">
+        <ion-item @click="Sendtosee(categ.id)">
+          {{ categ.recipiename }}
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option>
+            <ion-button @click="deleteitem(categ)">
+              <ion-icon slot="icon-only" :icon="trash"></ion-icon>
+            </ion-button>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+      <!-- <ion-list>
         <ion-item v-for="categ in categories" :key="categ" @click="Sendtosee(categ.id)">
                 {{categ.recipiename}}
         </ion-item>
-      </ion-list>
+      </ion-list> -->
        </ion-content>
   </ion-page>
 </template>
@@ -36,11 +48,15 @@ import {
   IonButtons,
   IonIcon,
   IonButton,
-  IonList,
+   IonItemOption,
+    IonItemOptions,
+    IonItemSliding,
+  /* IonList, */
   IonItem,
 } from "@ionic/vue";
-import { addCircleOutline  } from "ionicons/icons";
-
+import { addCircleOutline,star, trash } from "ionicons/icons";
+import { auth, db } from "../main";
+import { collection, deleteDoc, getDocs } from "firebase/firestore";
 
 export default {
   props: ['TitlePer'],
@@ -54,13 +70,17 @@ export default {
     IonButtons,
     IonIcon,
     IonButton,
-    IonList,
+    /* IonList, */
     IonItem,
+     IonItemOption,
+    IonItemOptions,
+    IonItemSliding,
   },
   data() {
     return {addCircleOutline,
     ppf:"",
     playerfood:"",
+    star, trash
     };
   }, 
   methods:{
@@ -70,6 +90,30 @@ export default {
     },
     Sendtosee(id){
       this.$router.push({name:'UpdateSee', params:{TitleUpdate:this.ppf,id:id}});
+    },
+    async deleteitem(recipe){
+      const user = auth.currentUser;
+      const userref = collection(db, "user", user.uid, "recipies");
+      const docData = {
+        id: recipe.id,
+        recipiename: recipe.recipiename,
+        notes: recipe.notes,
+        ingredient: recipe.ingredient,
+        category: recipe.category,
+        recipie: recipe.recipie,
+        favorite: recipe.favorite,
+      };
+     
+      const querySnapshot = await getDocs(userref);
+      if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+          if (doc.data().id == docData.id) {
+            deleteDoc(doc.ref, docData);
+          }
+        });
+      }
+      //update store
+      this.$store.commit("removeFromstore", docData);
     }
   },
   computed:{

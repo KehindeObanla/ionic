@@ -128,9 +128,16 @@ export default {
       const querySnapshot = await getDocs (userref);
       if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
-           updateDoc(doc.ref, docData);
+          if(doc.data().id == docData.id)
+          {
+            
+              updateDoc(doc.ref, docData);
+          }
+           
         });
       }
+     this.$store.commit('changespecfic',docData);
+     
       this.$router.push({name:'category', params:{TitlePer:this.TitleUpdate}});
     },
   },
