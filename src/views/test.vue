@@ -4,7 +4,7 @@
       <ion-toolbar>
         <ion-title>{{ ppf }}</ion-title>
         <ion-buttons slot="start">
-          <ion-back-button default-href="/Mainpage">
+          <ion-back-button>
             <ion-icon name="arrow-back-outline"></ion-icon>
           </ion-back-button>
         </ion-buttons>

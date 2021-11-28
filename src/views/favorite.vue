@@ -18,7 +18,7 @@
         <ion-item-options side="end">
           <ion-item-option>
             <ion-button @click="Makeunfav(categ)">
-              <ion-icon slot="icon-only" :icon="trash"></ion-icon>
+              <ion-icon slot="icon-only" :icon="star"></ion-icon>
             </ion-button>
           </ion-item-option>
         </ion-item-options>
@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     categories() {
-      console.log("checked")
+      
       return this.$store.getters.catfav();
     },
   },
@@ -76,7 +76,7 @@ export default {
       });
     },
     async Makeunfav(recipe) {
-     console.log("tried")
+     
       const user = auth.currentUser;
       const userref = collection(db, "user", user.uid, "recipies");
       const docData = {

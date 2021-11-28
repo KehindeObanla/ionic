@@ -11,7 +11,10 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <div id="map" ref="mapRef"></div>
+      <ion-textarea>
+
+      </ion-textarea>
+      
     </ion-content>
   </ion-page>
 </template>
@@ -26,6 +29,7 @@ import {
    IonBackButton,
     IonButtons,
     IonIcon,
+    IonTextarea,
 } from "@ionic/vue";
 
 export default {
@@ -39,7 +43,7 @@ export default {
     IonBackButton,
     IonButtons,
     IonIcon,
-    
+    IonTextarea,
   },
   setup() {
     
