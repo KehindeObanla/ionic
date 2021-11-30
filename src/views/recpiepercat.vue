@@ -4,7 +4,7 @@
       <ion-toolbar>
         <ion-title>{{ TitlePerCat }} </ion-title>
         <ion-buttons slot="start">
-          <ion-back-button>
+          <ion-back-button default-href="/Mainpage">
             <ion-icon name="arrow-back-outline"></ion-icon>
           </ion-back-button>
         </ion-buttons>

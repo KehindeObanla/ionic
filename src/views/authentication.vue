@@ -55,6 +55,9 @@
         <ion-card-content v-if="errormsg" class="error-message">
           {{ errormsg }}
         </ion-card-content>
+        <ion-card-content >
+        <router-link :to="{name:'resetPassword'}">ResetPassword</router-link> 
+        </ion-card-content>
       </ion-card>
     </ion-content>
   </ion-page>
@@ -81,6 +84,7 @@ import {
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+
 } from "firebase/auth";
 import { db, auth } from "../main";
 import { doc, setDoc, getDocs , collection } from "firebase/firestore";
@@ -183,6 +187,7 @@ export default {
         });
       }
     };
+    
     const toggle = (value) => {
       store.commit('AddFromDB',value)};
     return {

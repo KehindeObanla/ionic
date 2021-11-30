@@ -11,7 +11,9 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-textarea>
+      <ion-textarea placeholder="enter shopping list."
+            v-model="recipe"
+            auto-grow="true">
 
       </ion-textarea>
       
@@ -45,9 +47,24 @@ export default {
     IonIcon,
     IonTextarea,
   },
-  setup() {
+  data() {return{
+    recipe:"",
+    change:false,
+    note:"",
+  }
     
   },
+  watch:{
+    recipe:function (val){
+      this.note =val
+      this.change = true;
+    }
+  },
+  ionViewWillLeave(){
+    if(this.change){
+      //call db and update 
+    }
+  }
 };
 </script>
 

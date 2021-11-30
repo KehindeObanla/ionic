@@ -9,6 +9,7 @@ import test from '../views/test.vue'
 import category from '../views/category.vue'
 import UpdateSee from '../views/updateSee.vue'
 import { auth } from '../main';
+import resetPassword from '../views/resetpassword.vue'
 const guard = (to, from, next) => {
     const curruser = auth.currentUser;
     try {
@@ -93,6 +94,11 @@ const routes = [{
         beforeEnter: guard,
         meta: { requiresAuth: true }
 
+    },
+    {
+        path: '/resetPassword',
+        name: 'resetPassword',
+        component: resetPassword,
     },
 
 ]
