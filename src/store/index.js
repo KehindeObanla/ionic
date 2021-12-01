@@ -5,7 +5,8 @@ const store = createStore({
             categories: [],
             player: [{
                 foodtype: "",
-            }]
+            }],
+            shoppingList: ""
         };
     },
     getters: {
@@ -32,6 +33,9 @@ const store = createStore({
             return () => {
                 return state.categories.filter((category) => category.favorite == true);
             }
+        },
+        getShoppingList(state) {
+            return state.shoppingList
         }
     },
     mutations: {
@@ -54,6 +58,10 @@ const store = createStore({
         removeFromstore(state, Payload) {
             const cate = state.categories.find((category) => { return category.id == Payload.id });
             state.categories.splice(store.state.categories.indexOf(cate), 1);
+        },
+        AddShopping(state, list) {
+            state.shoppingList = list
+
         }
 
     }

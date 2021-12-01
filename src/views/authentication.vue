@@ -55,8 +55,10 @@
         <ion-card-content v-if="errormsg" class="error-message">
           {{ errormsg }}
         </ion-card-content>
-        <ion-card-content >
-        <router-link :to="{name:'resetPassword'}">ResetPassword</router-link> 
+        <ion-card-content>
+          <router-link :to="{ name: 'resetPassword' }"
+            >ResetPassword</router-link
+          >
         </ion-card-content>
       </ion-card>
     </ion-content>
@@ -84,13 +86,12 @@ import {
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-
 } from "firebase/auth";
 import { db, auth } from "../main";
-import { doc, setDoc, getDocs , collection } from "firebase/firestore";
+import { doc, setDoc, getDocs, collection,getDoc  } from "firebase/firestore";
 import { reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
-import {useStore} from 'vuex'
+import { useStore } from "vuex";
 const AuthMode = {
   SignIn: "SignIn",
   SignUp: "SignUp",
@@ -114,7 +115,7 @@ export default {
     IonCardHeader,
   },
   setup() {
-    const store = useStore()
+    const store = useStore();
     const router = useRouter();
     const state = reactive({
       name: "",
@@ -160,6 +161,7 @@ export default {
             const docData = {
               name: state.name,
               email: state.email,
+              shoppingList: "",
             };
             setDoc(userref, docData);
 
@@ -177,19 +179,26 @@ export default {
       }
     };
     const onSiginInOrUP = async (user) => {
-      
       const uid = user.uid;
       const docRef = collection(db, "user", uid, "recipies");
-      const querySnapshot = await getDocs (docRef);
+      const docref2 = doc(db, "user",uid);
+      const querySnapshot = await getDocs(docRef);
       if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
-          toggle(doc.data())
+          toggle(doc.data());
         });
       }
+      const docSnap = await getDoc(docref2);
+      if (docSnap.exists()) {
+        
+       const list = docSnap.data().shoppingList;
+       store.commit("AddShopping", list);
+      }
     };
-    
+
     const toggle = (value) => {
-      store.commit('AddFromDB',value)};
+      store.commit("AddFromDB", value);
+    };
     return {
       ...toRefs(state),
       usersiginWithemailandPassword,
