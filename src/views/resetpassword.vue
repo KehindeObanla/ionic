@@ -3,6 +3,11 @@
     <ion-header>
       <ion-toolbar>
         <ion-title> Reset Password </ion-title>
+        <ion-buttons slot="start">
+          <ion-back-button>
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </ion-back-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -42,6 +47,9 @@ import {
   IonLabel,
   IonItem,
   IonToolbar,
+  IonBackButton,
+    IonButtons,
+    IonIcon,
  
 } from "@ionic/vue";
 export default {
@@ -58,6 +66,9 @@ export default {
     IonLabel,
     IonItem,
     IonToolbar,
+    IonBackButton,
+    IonButtons,
+    IonIcon,
   },
     data(){
         return{

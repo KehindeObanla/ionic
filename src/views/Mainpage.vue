@@ -95,7 +95,7 @@ import {
   IonContent,
   IonSearchbar,
   IonSegment, IonSegmentButton,
- /*  IonButton  */
+ 
 } from "@ionic/vue";
 import { cartOutline, starOutline } from "ionicons/icons";
 import { useRouter } from "vue-router";
@@ -120,7 +120,7 @@ export default {
     IonSegment, 
     IonSegmentButton,
     IonSearchbar,
-/* IonButton  */
+
   },
   setup() {
   
