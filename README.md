@@ -1,4 +1,4 @@
 # ionic
-How to run
-# Run npm install
-# ionic serve
+#How to run
+1)Run npm install
+2)ionic serve
